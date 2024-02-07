@@ -9,19 +9,23 @@ import Menu3 from './Menu/Menu3'
 import SlideWrapper from './SlideWrapper'
 
 const NavLinks = () => {
+    // state to keep track of the hovered link
     const [hovering, setHovering] = useState(null)
+    // state to keep track of the left position of the popover
     const [popoverLeft, setPopoverLeft] = useState(null)
+    // state to keep track of the height of the popover
     const [popoverHeight, setPopoverHeight] = useState(null)
 
     const refs = useRef([])
 
-    useEffect(() => {
-        console.log(popoverHeight);
-    }, [popoverHeight])
-
+    // function to handle mouse enter event
     const handleMouseEnter = (index, event) => {
+        // set the hovering state to the index of the hovered link
         setHovering(index)
+        // set the popover left position to the offset left of the hovered link
         setPopoverLeft(event.target.offsetLeft)
+
+        // get the height of the hovered menu
         const menuElement = refs.current[index]
 
         if (menuElement)
@@ -68,12 +72,14 @@ const NavLinks = () => {
             >
                 Pricing
             </a>
+
+            {/* T */}
             <div
                 className={clsx(
                     'absolute z-40 top-12 pt-6 -ml-24 w-[600px] duration-300',
                     hovering !== null ? 'transition-all' : 'opacity-0 pointer-events-none'
                 )}
-                style={{ left: popoverLeft || undefined }}
+                style={{ left: popoverLeft || 100 }}
             >
                 <div
                     style={{
